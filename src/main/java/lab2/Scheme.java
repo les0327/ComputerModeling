@@ -4,13 +4,13 @@ import lombok.*;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 @NoArgsConstructor
 public class Scheme {
 
     @Getter @Setter private Device[] devices;
     private double T;
-    private int tasks;
 
     public Scheme(Device[] devices) {
         this.devices = devices;
@@ -30,20 +30,11 @@ public class Scheme {
             T = min; // set total time to moment when task will be calculated
             passTask(currentDevice, random);
         }
-        Arrays.asList(devices).forEach(device -> System.out.printf("%3s(%.2f) - %f%c (tasks = %d)%n",
-                device.getName(), device.getTau(), device.getWorkTime()/T, '%', device.getTasks()));
-        System.out.println(this);
-        double t  = 0;
-        double ts = 0;
-        for (Device d : devices) {
-            t += d.getTasks() * d.getTau();
-            ts += d.getTasks();
-        }
 
-        System.out.println(T);
-        System.out.println(t);
-        System.out.println(steps);
-        System.out.println(ts);
+        System.out.println("Total tasks = " + steps);
+        System.out.println("Total time  = " + T);
+        Arrays.asList(devices).forEach(device -> System.out.printf("%3s(%.2f) - %4.2f%c (tasks = %d)%n",
+                device.getName(), device.getTau(), device.getWorkTime()/T * 100, '%', device.getTasks()));
     }
 
     public void addTaskToDevice(Device device) {
@@ -51,7 +42,6 @@ public class Scheme {
             device.setOnProcessing(1);
             device.setFree(false);
             device.setTimeOut(T + device.getTau());
-            device.setTasks(device.getTasks() + 1);
             device.setWorkTime(device.getWorkTime() + device.getTau());
         } else {
             device.setInQueue(device.getInQueue() + 1);
@@ -61,6 +51,7 @@ public class Scheme {
     private void passTask(Device device, Random r) {
         Device next = device.next(r.nextDouble());
         addTaskToDevice(next);
+        device.setTasks(device.getTasks() + 1);
         if (device.getInQueue() == 0) {
             device.setTimeOut(0);
             device.setOnProcessing(0);
@@ -68,7 +59,6 @@ public class Scheme {
         } else {
             device.setInQueue(device.getInQueue() - 1);
             device.setTimeOut(T + device.getTau());
-            device.setTasks(device.getTasks() + 1);
             device.setWorkTime(device.getWorkTime() + device.getTau());
         }
     }

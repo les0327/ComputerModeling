@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Device[] devices = new Device[10];
         devices[0] = new Device("ЦП", 0.01);
-        devices[1] = new Device("NB", 0.5);
+        devices[1] = new Device("NB", 0.2);
         devices[2] = new Device("SB", 0.5);
         devices[3] = new Device("ОП", 0.1);
         devices[4] = new Device("ВП", 0.03);
@@ -45,14 +45,7 @@ public class Main {
         scheme.addTaskToDevice(devices[0]);
         scheme.addTaskToDevice(devices[2]);
         scheme.addTaskToDevice(devices[8]);
-//        System.out.println(scheme.toString());
         scheme.model(STEPS);
 
-//        System.out.println(devices[2].next(0.001));
-//        System.out.println(devices[2].next(0.02));
-//        System.out.println(devices[2].next(0.04));
-//        System.out.println(devices[2].next(0.09));
-//        System.out.println(devices[2].next(0.3));
-//        System.out.println(devices[2].next(0.55));
     }
 }
