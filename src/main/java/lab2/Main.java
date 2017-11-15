@@ -2,6 +2,8 @@ package lab2;
 
 public class Main {
 
+    private static final int STEPS = 100000;
+
     public static void main(String[] args) {
         Device[] devices = new Device[10];
         devices[0] = new Device("ЦП", 0.01);
@@ -26,11 +28,11 @@ public class Main {
         devices[2].addCrossing(new Crossing(0.02, devices[4])); // SB -> ВП
         devices[2].addCrossing(new Crossing(0.02, devices[5])); // SB -> АП
         devices[2].addCrossing(new Crossing(0.05, devices[6])); // SB -> МА
-        devices[2].addCrossing(new Crossing(0.4, devices[6]));  // SB -> КД
+        devices[2].addCrossing(new Crossing(0.4, devices[7]));  // SB -> КД
 
         devices[3].addCrossing(new Crossing(1, devices[1]));    // ОП -> NB
-        devices[4].addCrossing(new Crossing(1, devices[1]));    // ВП -> ЦП
-        devices[5].addCrossing(new Crossing(1, devices[1]));    // АП -> ЦП
+        devices[4].addCrossing(new Crossing(1, devices[0]));    // ВП -> ЦП
+        devices[5].addCrossing(new Crossing(1, devices[0]));    // АП -> ЦП
         devices[6].addCrossing(new Crossing(1, devices[2]));    // МА -> SB
         devices[7].addCrossing(new Crossing(1, devices[2]));    // КД -> SB
 
@@ -38,5 +40,19 @@ public class Main {
         devices[8].addCrossing(new Crossing(0.5, devices[9]));  // ISA -> COM
 
         devices[9].addCrossing(new Crossing(1, devices[8]));    // COM -> ISA
+
+        Scheme scheme = new Scheme(devices);
+        scheme.addTaskToDevice(devices[0]);
+        scheme.addTaskToDevice(devices[2]);
+        scheme.addTaskToDevice(devices[8]);
+//        System.out.println(scheme.toString());
+        scheme.model(STEPS);
+
+//        System.out.println(devices[2].next(0.001));
+//        System.out.println(devices[2].next(0.02));
+//        System.out.println(devices[2].next(0.04));
+//        System.out.println(devices[2].next(0.09));
+//        System.out.println(devices[2].next(0.3));
+//        System.out.println(devices[2].next(0.55));
     }
 }
