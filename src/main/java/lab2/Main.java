@@ -42,9 +42,9 @@ public class Main {
         devices[9].addCrossing(new Crossing(1, devices[8]));    // COM -> ISA
 
         Scheme scheme = new Scheme(devices);
-        scheme.addTaskToDevice(devices[0]);
-        scheme.addTaskToDevice(devices[2]);
-        scheme.addTaskToDevice(devices[8]);
+        for (int i = 0; i < 100; i++) {
+            scheme.addTaskToDevice(devices[0]);
+        }
         scheme.model(STEPS);
 
     }
