@@ -2,9 +2,12 @@ package lab2;
 
 public class Main {
 
-    private static final int STEPS = 100000;
+    private static final int STEPS = 10000000;
 
     public static void main(String[] args) {
+
+        System.out.println("Lab 2\n");
+
         Device[] devices = new Device[10];
         devices[0] = new Device("ЦП", 0.01);
         devices[1] = new Device("NB", 0.2);
@@ -42,10 +45,9 @@ public class Main {
         devices[9].addCrossing(new Crossing(1, devices[8]));    // COM -> ISA
 
         Scheme scheme = new Scheme(devices);
-        for (int i = 0; i < 100; i++) {
-            scheme.addTaskToDevice(devices[0]);
-        }
+        scheme.addTaskToDevice(devices[0]);
+        scheme.addTaskToDevice(devices[1]);
+        scheme.addTaskToDevice(devices[2]);
         scheme.model(STEPS);
-
     }
 }
