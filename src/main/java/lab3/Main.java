@@ -36,7 +36,7 @@ public class Main {
         Tree tree = new Tree();
         tree.generateTree(startStateMatrix, probabilities, tau);
         System.out.println("Lab 3\n");
-//        System.out.println(StateFactory.getStates().size());
+        System.out.println(StateFactory.getStates().size());
 //        System.out.println(StateFactory.theoreticSize(10, 3));
 
         Process p = new Process(tree.getStateMap());

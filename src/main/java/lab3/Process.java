@@ -53,6 +53,23 @@ public class Process {
                     probabilities[i] -= m[i][j] * probabilities[j] / m[i][i];
         }
 
+        int maxIndex = 0;
+        double max = Double.MIN_VALUE;
+
+        for (int i = 0; i < probabilities.length; i++) {
+            if (probabilities[i] > max) {
+                max = probabilities[i];
+                maxIndex = i;
+            }
+        }
+        final int i = maxIndex;
+        State maxState = stateMap.keySet().stream().filter(state -> state.getIndex() == i).findFirst().get();
+        StringBuilder sb = new StringBuilder("State with max probability(");
+        sb.append(max).append("):\n");
+        for (int[] device : maxState.getMatrix())
+            sb.append(Arrays.toString(device)).append('\n');
+        System.out.println(sb.toString());
+
         return probabilities;
     }
 
